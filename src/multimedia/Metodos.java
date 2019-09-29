@@ -5,6 +5,13 @@
  */
 package multimedia;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.Hashtable;
 
@@ -83,4 +90,65 @@ public class Metodos {
     }
 
     
+    public void input() {
+        File ficheroObjeto = new File("src/documentos/fichero.txt");
+        ObjectInputStream ois = null;
+        try {
+            ois = new ObjectInputStream(new FileInputStream(ficheroObjeto));
+            listaMusica = (Hashtable<String, Musica>) ois.readObject();
+            listaLibro = (Hashtable<String, Libro>) ois.readObject();
+            listaPelicula = (Hashtable<String, Pelicula>) ois.readObject();
+
+            Enumeration<Musica> listamusica = listaMusica.elements();
+
+            while (listamusica.hasMoreElements()) {
+                Musica a = listamusica.nextElement();
+                System.out.println(a.toString());
+            }
+
+            Enumeration<Libro> listalibro = listaLibro.elements();
+
+            while (listalibro.hasMoreElements()) {
+                Libro a = listalibro.nextElement();
+                System.out.println(a.toString());
+            }
+
+            Enumeration<Pelicula> listapelicula = listaPelicula.elements();
+
+            while (listapelicula.hasMoreElements()) {
+                Pelicula a = listapelicula.nextElement();
+                System.out.println(a.toString());
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                ois.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void output() {
+
+        File ficheroObjeto = new File("src/documentos/fichero.txt");
+        ObjectOutputStream oos = null;
+        try {
+            oos = new ObjectOutputStream(new FileOutputStream(ficheroObjeto));
+            oos.writeObject(listaMusica);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                oos.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        }
+    }
 }

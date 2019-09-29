@@ -207,10 +207,10 @@ public class Entrada {
                     }
                     break;
                 case 4:
-                    
+                    metodos.input();
                     break;
                 case 5:
-                    
+                    //metodos.output();
                     break;
                 case 6:
                     System.out.println("Has salido con éxito.");
